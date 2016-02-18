@@ -1,10 +1,14 @@
 <?php
+namespace Cgi\Application\Core;
 /**
  * Created by PhpStorm.
  * User: aleksandr
  * Date: 16.02.16
  * Time: 16:16
  */
+
+use Cgi\Application\Core\Controller;
+
 class Route
 {
     /**
@@ -16,8 +20,8 @@ class Route
         $controllerName = 'default';
         $actionName = 'Index';
 
-        $routes = explode('/', $_SERVER['REQUEST_URI']);
-
+        //$routes = explode('/', $_SERVER['REQUEST_URI']);
+        $routes = preg_split("#/|\?#", $_SERVER['REQUEST_URI']);
         //get controller name
         if ( !empty($routes[1]) )
         {
@@ -31,44 +35,33 @@ class Route
         }
 
         // forming full names
-        $modelName = $controllerName . 'Model';
-        $controllerName = $controllerName . 'Controller';
+        //$modelName = $controllerName . 'Model';
+        $controllerName = '\\Cgi\Application\Controllers\\' . ucfirst($controllerName) . 'Controller';
         $actionName = 'action' . $actionName;
 
         // add model file and class
 
-        $modelFile = $modelName .'.php';
-        $modelPath = "application/models/".$modelFile;
-        if(file_exists($modelPath))
-        {
-            include "application/models/".$modelFile;
-        }
-
-        // add controller file and class
-        $controllerFile = $controllerName .'.php';
-        $controllerPath = "application/controllers/".$controllerFile;
-        if(file_exists($controllerPath))
-        {
-            include "application/controllers/".$controllerFile;
-        }
-        else
-        {
-            //redirect to the arror page
-            Route::ErrorPage404();
-        }
+//        $modelFile = $modelName .'.php';
+//        $modelPath = "application/models/".$modelFile;
+//        if(file_exists($modelPath))
+//        {
+//            include "application/models/".$modelFile;
+//        }
 
         // creating controller
         $controller = new $controllerName;
         $action = $actionName;
+        $controller->setActionName($actionName);
 
         if(method_exists($controller, $action))
         {
+            //doing smt before calling an action
+            $controller->beforeAction();
             // call an action
             $controller->$action();
         }
         else
         {
-
             Route::ErrorPage404();
         }
 

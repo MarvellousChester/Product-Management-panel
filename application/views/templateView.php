@@ -7,12 +7,18 @@
 
 </head>
 <body>
+<?php use Cgi\Application\Models\UserModel;?>
 
 	<ul class="main-menu">
-		<li><a href="http://pmpanel.loc/main/index">Main page</a></li>
-		<li><a href="http://pmpanel.loc/main/importPage">Product Import page</a></li>
-		<li><a href="http://pmpanel.loc/main/listingPage">Product Listing page</a></li>
-		<li><a href="http://pmpanel.loc/main/editingPage">Product Editing page</a></li>
+		<?php if(!UserModel::isGuest()) { ?>
+			<li><a href="http://pmpanel.loc/main/index">Main page</a></li>
+			<li><a href="http://pmpanel.loc/main/importPage">Product Import page</a></li>
+			<li><a href="http://pmpanel.loc/main/listingPage">Product Listing page</a></li>
+			<li><a href="http://pmpanel.loc/main/editingPage">Product Editing page</a></li>
+			<li><a href="http://pmpanel.loc/main/logout">Logout</a></li>
+		<?php } else { ?>
+			<li><a href="http://pmpanel.loc/main/login">Login</a></li>
+		<?php } ?>
 	</ul>
 
 	<?php include 'application/views/'.$contentView; ?>

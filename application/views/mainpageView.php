@@ -1,1 +1,2 @@
-<h1>HI! It's a main page.</h1>
+
+<h1>HI, <?=$first_name ?>! It's a Main page.</h1>

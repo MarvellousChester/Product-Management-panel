@@ -1,13 +1,12 @@
 <?php
+namespace Cgi\Application;
 /**
  * Created by PhpStorm.
  * User: aleksandr
  * Date: 16.02.16
  * Time: 16:14
  */
-require_once 'core/model.php';
-require_once 'core/view.php';
-require_once 'core/controller.php';
-require_once 'core/route.php';
+
+use Cgi\Application\Core\Route;
 
 Route::start();

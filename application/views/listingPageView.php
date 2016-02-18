@@ -1,1 +1,1 @@
-<h1>HI! It's a product listing page.</h1>
+<h1>HI! It's a Product Listing page.</h1>

@@ -1,4 +1,5 @@
 <?php
+namespace Cgi\Application\Core;
 /**
  * Created by PhpStorm.
  * User: aleksandr
@@ -7,16 +8,16 @@
  */
 class View
 {
-    //public $template_view; // здесь можно указать общий вид по умолчанию.
+    public $templateView = 'templateView.php';
 
     function render($contentView, $templateView, $data = null)
     {
-        /*
+
         if(is_array($data)) {
             // преобразуем элементы массива в переменные
             extract($data);
         }
-        */
+
 
         include 'application/views/'.$templateView;
     }
