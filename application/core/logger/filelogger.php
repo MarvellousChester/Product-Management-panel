@@ -19,14 +19,9 @@ class FileLogger extends LoggerAbstract
     protected function writeLog($message, $messageType)
     {
         $file = fopen($this->filename, 'a+');
-        $test = fwrite(
+        fwrite(
             $file, date('Y-m-d H:i:s') . ' ' . ' error: ' . $message . "\n"
         );
-        if ($test) {
-            echo 'Log was successfully written. <br />';
-        } else {
-            echo 'En error while writing the log. <br />';
-        }
         fclose($file);
     }
 }

@@ -39,15 +39,6 @@ class Route
         $controllerName = '\\Cgi\Application\Controllers\\' . ucfirst($controllerName) . 'Controller';
         $actionName = 'action' . $actionName;
 
-        // add model file and class
-
-//        $modelFile = $modelName .'.php';
-//        $modelPath = "application/models/".$modelFile;
-//        if(file_exists($modelPath))
-//        {
-//            include "application/models/".$modelFile;
-//        }
-
         // creating controller
         $controller = new $controllerName;
         $action = $actionName;

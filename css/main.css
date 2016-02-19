@@ -20,6 +20,41 @@ body {
 
 }
 
-.main-menu a {
+a {
     color: #0088CC;
+}
+
+table {
+    border: 1px solid #E5E5E5;
+}
+table th {
+    border: 2px solid #E5E5E5;
+}
+
+table td {
+    border: 1px solid #E5E5E5;
+}
+
+table caption {
+    font-size: 16pt;
+    font-weight: bold;
+}
+
+table a {
+    text-decoration: none;
+}
+
+.pager {
+
+}
+
+.pager p {
+    display: inline-block;
+    margin: 5px 1px;
+    padding: 0 5px;
+    border: 2px solid #E5E5E5;
+}
+
+.pager p a {
+    text-decoration: none;
 }

@@ -1,0 +1,38 @@
+form {
+    margin: 10px;
+}
+
+form label {
+    display: inline-block;
+    width : 100px;
+}
+
+form input {
+    margin: 10px 0px;
+    width: 300px;
+}
+
+form .submitButton {
+    width : 100px;
+    margin: 10px 0px;
+}
+#editForm {
+
+}
+
+#editForm input {
+    width : 400px;
+
+}
+
+#editForm .submitButton {
+    width : 100px;
+    margin: 10px 0px;
+}
+
+#importForm label {
+    width : 130px;
+}
+#importForm .submitButton {
+    width : 120px;
+}

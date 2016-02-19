@@ -29,11 +29,6 @@ class MainController extends Controller
         $this->view->render('listingPageView.php', 'templateView.php');
     }
 
-    public function actionEditingPage()
-    {
-        $this->view->render('editingPageView.php', 'templateView.php');
-    }
-
     public function actionLogin()
     {
         //If email and password were sent

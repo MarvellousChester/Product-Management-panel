@@ -97,16 +97,16 @@ abstract class ModelAbstract implements OrmInterface
         }
     }
 
-    public function load($id)
+    public function loadBy($field, $value)
     {
         $sqlQuery = "SELECT * FROM `" . $this->table
-            . "` WHERE $this->primaryKey = ?";
+            . "` WHERE `$field` = ?";
 
         $statement = self::$dbh->prepare($sqlQuery);
-        $statement->execute([$id]);
+        $statement->execute([$value]);
         $values = $statement->fetch();
         if ($values == null) {
-            self::$logger->notice("Can't find en entry with ID: $id ");
+            self::$logger->notice("Can't find en entry with $field : $value ");
         } else {
             $this->data = $values;
             $this->isLoaded = true;
@@ -138,6 +138,7 @@ abstract class ModelAbstract implements OrmInterface
             array_push($insertMas, $this->data[$this->primaryKey]);
 
             $inserted = $statement->execute($insertMas);
+            return $inserted;
         } else {
             foreach ($this->fields as $key => $value) {
                 $this->fields[$key] = "`$value`";
@@ -149,9 +150,8 @@ abstract class ModelAbstract implements OrmInterface
 
             $statement = self::$dbh->prepare($query);
             $inserted = $statement->execute($insertMas);
+            return $inserted;
         }
-
-        echo "$inserted lines added. <br />";
 
     }
 
@@ -162,8 +162,7 @@ abstract class ModelAbstract implements OrmInterface
                 . "` WHERE $this->primaryKey = ?";
 
             $statement = self::$dbh->prepare($sqlQuery);
-            $inserted = $statement->execute([$this->data[$this->primaryKey]]);
-            echo "$inserted entry was deleted <br />";
+            $statement->execute([$this->data[$this->primaryKey]]);
             $this->isLoaded = false;
             $this->data[$this->primaryKey] = null;
         } else {
@@ -177,7 +176,16 @@ abstract class ModelAbstract implements OrmInterface
      */
     public function getId()
     {
-        return $this->primaryKey;
+        if(!empty($this->data[$this->primaryKey])) {
+            return $this->data[$this->primaryKey];
+        }
+        else return null;
+
+    }
+
+    public function getFields()
+    {
+        return $this->fields;
     }
     /**
      * Returns the name of the table

@@ -9,15 +9,7 @@ class Settings
             'host' => 'localhost',
             'user' => 'phpmyadmin',
             'password' => '123456'
-        ],
-        'magentoInputFields' => [
-            'name',
-            'sku',
-            'is_saleable',
-            'description',
-            'final_price_without_tax'
-        ],
-
+        ]
     ];
 
     public static function getSettings($field)
