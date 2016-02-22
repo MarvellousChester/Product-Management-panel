@@ -45,7 +45,7 @@ class DataController extends Controller
 
     }
 
-    /**Display sorted products. Also can apply pagination if it's necessary
+    /**Display products
      *
      */
     public function actionList()

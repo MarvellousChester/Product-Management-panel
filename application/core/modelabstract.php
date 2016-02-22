@@ -86,7 +86,7 @@ abstract class ModelAbstract implements OrmInterface
     /**
      * @param $field
      *
-     * @return data
+     * @return $data
      */
     public function get($field)
     {
@@ -140,6 +140,7 @@ abstract class ModelAbstract implements OrmInterface
             $inserted = $statement->execute($insertMas);
             return $inserted;
         } else {
+            $items = [];
             foreach ($this->fields as $key => $value) {
                 $this->fields[$key] = "`$value`";
                 $items[] = '?';
