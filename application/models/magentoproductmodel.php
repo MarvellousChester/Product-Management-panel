@@ -58,7 +58,6 @@ class MagentoProductModel extends ModelAbstract
             return false;
         }
         return true;
-
     }
 
     public static function sort($products)
@@ -76,7 +75,6 @@ class MagentoProductModel extends ModelAbstract
                 array_multisort($array, SORT_DESC, SORT_REGULAR, $products);
             }
         }
-
         return $products;
     }
 }
