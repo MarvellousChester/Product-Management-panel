@@ -32,8 +32,8 @@ use Cgi\Application\Core\UrlHandler;
 </table>
 
 <div class="pager">
-<?php for($i = 0; $i < $amountOfPages; $i++) {
-    echo '<p><a href=' . UrlHandler::updateUrl(['page' => $i]) . '>' . ($i+1) .'</a></p>';
+<?php for($i = 1; $i <= $amountOfPages; $i++) {
+    echo '<p><a href=' . UrlHandler::updateUrl(['page' => $i]) . '>' . $i .'</a></p>';
 }
 ?>
 </div>

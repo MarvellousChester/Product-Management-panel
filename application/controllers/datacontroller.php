@@ -50,38 +50,14 @@ class DataController extends Controller
      */
     public function actionList()
     {
-        //test2
-        //Не годится для большого объема товаров. Переделать на sql
-        $products = MagentoProductModel::getAllProducts();
-        $products = MagentoProductModel::sort($products);
-
-        $page = 0;
-
-        if (isset($_GET["page"])) {
-            $page = $_GET["page"];
-        }
-
-        $pagination = false;
         $itemsOnPage = Settings::getSettings('productsPerPage');
-        $amountOfPages = ceil(count($products) / $itemsOnPage);
-
-        if (count($products) > $itemsOnPage) {
-            $pagination = true;
-        }
-        if ($pagination) {
-            $productsSplited = array_chunk($products, $itemsOnPage);
-            $this->view->render(
-                'listingPageView.php', 'templateView.php',
-                ['products'      => $productsSplited[$page], 'page' => $page,
-                 'amountOfPages' => $amountOfPages]
-            );
-        } else {
-            $this->view->render(
-                'listingPageView.php', 'templateView.php',
-                ['products'      => $products, 'page' => $page,
-                 'amountOfPages' => $amountOfPages]
-            );
-        }
+        $products = MagentoProductModel::getProducts($itemsOnPage);
+        $amountOfProducts = MagentoProductModel::countProducts();
+        $amountOfPages = ceil($amountOfProducts / $itemsOnPage);
+        $this->view->render(
+            'listingPageView.php', 'templateView.php',
+            ['products'      => $products, 'amountOfPages' => $amountOfPages]
+        );
     }
 
     /**Edit a single product
