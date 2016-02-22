@@ -50,7 +50,7 @@ class DataController extends Controller
      */
     public function actionList()
     {
-        //test
+        //test2
         //Не годится для большого объема товаров. Переделать на sql
         $products = MagentoProductModel::getAllProducts();
         $products = MagentoProductModel::sort($products);
