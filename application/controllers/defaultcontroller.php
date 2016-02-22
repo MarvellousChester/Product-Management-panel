@@ -10,13 +10,17 @@ use Cgi\Application\Models\UserModel;
  * Time: 16:59
  */
 
-class defaultController extends Controller
+class DefaultController extends Controller
 {
     function actionIndex()
     {
         $user = UserModel::findBy('email', $_SESSION["email"]);
         $name = $user->get('first_name');
         $this->view->render('mainpageView.php', 'templateView.php', ['first_name' => $name]);
+    }
+    function action404()
+    {
+        $this->view->render('404View.php', 'templateView.php');
     }
 
 }

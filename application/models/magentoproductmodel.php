@@ -57,5 +57,22 @@ class MagentoProductModel extends ModelAbstract
 
     }
 
+    public static function sort($products)
+    {
+        if (isset($_GET["sortBy"])) {
+            $sortAttribute = $_GET["sortBy"];
+            $sortOption = $_GET["option"];
+            $array = [];
+            foreach ($products as $key => $product) {
+                $array[$key] = $product[$sortAttribute];
+            }
+            if ($sortOption == 'ASC') {
+                array_multisort($array, SORT_ASC, SORT_REGULAR, $products);
+            } elseif ($sortOption == 'DESC') {
+                array_multisort($array, SORT_DESC, SORT_REGULAR, $products);
+            }
+        }
 
+        return $products;
+    }
 }

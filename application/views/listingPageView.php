@@ -23,7 +23,7 @@ use Cgi\Application\Core\UrlHandler;
 ?>
     <tr>
         <td> <?=$item['product_id']?>  </td>
-        <td> <?=$item['name']?> </td>
+        <td class="nameColumn"> <?=$item['name']?> </td>
         <td> <?=$item['final_price_without_tax']?></td>
         <td><a href="http://pmpanel.loc/data/edit?id=<?=$item['product_id']?>">Edit</a>  </td></td>
     </tr>

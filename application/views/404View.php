@@ -1,7 +1,3 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: aleksandr
- * Date: 16.02.16
- * Time: 18:37
- */
+<div id="notFound404">
+    <h1>404 not found</h1>
+</div>

@@ -2,17 +2,24 @@
 namespace Cgi\Application\Controllers;
 
 use Cgi\Application\Core\Controller;
+use Cgi\Application\Core\Settings;
 use Cgi\Application\Models\MagentoProductModel;
 
 class DataController extends Controller
 {
+    /**Import products using Magento REST API and save them in the database
+     *
+     */
     public function actionImport()
     {
         $report = "";
         if(isset($_GET["url"]) && $_GET["url"] != null)
         {
+            //forming the request url
+            $url = $_GET["url"] . 'api/rest/products?page=1&limit=100';
+            //making a request
             $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL, $_GET["url"]);
+            curl_setopt($ch, CURLOPT_URL, $url);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
             $output = curl_exec($ch);
             $productMas = json_decode($output, true);
@@ -20,14 +27,17 @@ class DataController extends Controller
             foreach($productMas as $product ) {
                 $entry = new MagentoProductModel();
                 $entry->loadBy('sku', $product['sku']);
+                $entry->saveProduct($product);
+                //If the product is not in the local database
                 if ($entry->getId() == null) {
-                    $entry->saveProduct($product);
                     $report .= 'Added new product with SKU: ' . $product['sku']
                         . '<br />';
                 }
+                else {
+                    $report .= 'Updated a product with SKU: ' . $product['sku']
+                        . '<br />';
+                }
             }
-
-
         }
         else {
             echo 'Please enter url address';
@@ -38,31 +48,20 @@ class DataController extends Controller
 
     public function actionList()
     {
+        //Добавить кеширование!
         $products = MagentoProductModel::getAllProducts();
-        if (isset($_GET["sortBy"])) {
-            $sortAttribute = $_GET["sortBy"];
-            $sortOption = $_GET["option"];
-            $array = [];
-            foreach ($products as $key => $product) {
-                $array[$key] = $product[$sortAttribute];
-            }
-            if ($sortOption == 'ASC') {
-                array_multisort($array, SORT_ASC, SORT_REGULAR, $products);
-            } elseif ($sortOption == 'DESC') {
-                array_multisort($array, SORT_DESC, SORT_REGULAR, $products);
-            }
-        }
+        $products = MagentoProductModel::sort($products);
+
         $page = 0;
 
         if (isset($_GET["page"])) {
             $page = $_GET["page"];
-
         }
 
-        $itemsOnPage = 10;
+        $pagination = false;
+        $itemsOnPage = Settings::getSettings('productsPerPage');
         $amountOfPages = ceil(count($products) / $itemsOnPage);
 
-        $pagination = false;
         if (count($products) > $itemsOnPage) {
             $pagination = true;
         }
@@ -70,16 +69,16 @@ class DataController extends Controller
             $productsSplited = array_chunk($products, $itemsOnPage);
             $this->view->render(
                 'listingPageView.php', 'templateView.php',
-                ['products' => $productsSplited[$page], 'page' => $page, 'amountOfPages' => $amountOfPages]
+                ['products'      => $productsSplited[$page], 'page' => $page,
+                 'amountOfPages' => $amountOfPages]
             );
         } else {
             $this->view->render(
                 'listingPageView.php', 'templateView.php',
-                ['products' => $products, 'page' => $page, 'amountOfPages' => $amountOfPages]
+                ['products'      => $products, 'page' => $page,
+                 'amountOfPages' => $amountOfPages]
             );
         }
-
-
     }
 
     public function actionEdit()

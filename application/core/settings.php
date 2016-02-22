@@ -3,13 +3,15 @@ namespace Cgi\Application\Core;
 
 class Settings
 {
-    static $settings = [
+    private static $settings = [
         'dbConnection' => [
             'dbname' => 'test_db',
             'host' => 'localhost',
             'user' => 'phpmyadmin',
             'password' => '123456'
-        ]
+        ],
+        'productsPerPage' => '10',
+
     ];
 
     public static function getSettings($field)

@@ -150,6 +150,7 @@ abstract class ModelAbstract implements OrmInterface
 
             $statement = self::$dbh->prepare($query);
             $inserted = $statement->execute($insertMas);
+            if($inserted != false) $this->afterSave();
             return $inserted;
         }
 
@@ -197,6 +198,11 @@ abstract class ModelAbstract implements OrmInterface
      *Called before save() method
      */
     protected function beforeSave()
+    {
+
+    }
+
+    protected function afterSave()
     {
 
     }

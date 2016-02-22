@@ -5,7 +5,6 @@
 	<title>Product Management panel</title>
 	<link rel="stylesheet" type="text/css" href="/css/main.css">
 	<link rel="stylesheet" type="text/css" href="/css/forms.css">
-	<script type="text/javascript" src="/js/script.js"> </script>
 
 </head>
 <body>

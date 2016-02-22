@@ -44,6 +44,10 @@ table a {
     text-decoration: none;
 }
 
+table .nameColumn {
+    width: 400px;
+}
+
 .pager {
 
 }
@@ -57,4 +61,10 @@ table a {
 
 .pager p a {
     text-decoration: none;
+}
+
+div#notFound404 h1 {
+    font-size: 90pt;
+    text-align: center;
+
 }
