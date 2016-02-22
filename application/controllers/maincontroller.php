@@ -16,7 +16,9 @@ class MainController extends Controller
     {
         $user = UserModel::findBy('email', $_SESSION["email"]);
         $name = $user->get('first_name');
-        $this->view->render('mainpageView.php', 'templateView.php', ['first_name' => $name]);
+        $this->view->render(
+            'mainpageView.php', 'templateView.php', ['first_name' => $name]
+        );
     }
 
     public function actionImportPage()
@@ -48,6 +50,7 @@ class MainController extends Controller
         //if user wasn't log in
         $this->view->render('loginFormView.php', 'templateView.php');
     }
+
     public function actionLogout()
     {
         $_SESSION = array();

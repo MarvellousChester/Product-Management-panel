@@ -38,19 +38,23 @@ class MagentoProductModel extends ModelAbstract
     public function validate()
     {
         $fields = $this->data;
-        if(strlen($fields['name']) > 65535) {
+        if (strlen($fields['name']) > 65535) {
             return false;
         }
-        if(strlen($fields['sku']) > 255) {
+        if (strlen($fields['sku']) > 255) {
             return false;
         }
-        if(($fields['is_saleable'] != '0') && ($fields['is_saleable'] != '1')) {
+        if (($fields['is_saleable'] != '0')
+            && ($fields['is_saleable'] != '1')
+        ) {
             return false;
         }
-        if(strlen($fields['description']) > 65535) {
+        if (strlen($fields['description']) > 65535) {
             return false;
         }
-        if(!is_float($fields['final_price_without_tax']) && !((float)$fields['final_price_without_tax'] > 0) ) {
+        if (!is_float($fields['final_price_without_tax'])
+            && !((float)$fields['final_price_without_tax'] > 0)
+        ) {
             return false;
         }
         return true;

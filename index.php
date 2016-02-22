@@ -5,8 +5,8 @@ require_once 'application/autoloader.php';
 
 use Cgi\Application\Autoloader;
 use Cgi\Application\Models\UserModel;
-use Cgi\Application\Core\Settings;
 
+//A main entry point of the application
 session_start();
 
 $autoloader = new Autoloader();

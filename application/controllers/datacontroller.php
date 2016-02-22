@@ -13,8 +13,7 @@ class DataController extends Controller
     public function actionImport()
     {
         $report = "";
-        if(isset($_GET["url"]) && $_GET["url"] != null)
-        {
+        if (isset($_GET["url"]) && $_GET["url"] != null) {
             //forming the request url
             $url = $_GET["url"] . 'api/rest/products?page=1&limit=100';
             //making a request
@@ -24,7 +23,7 @@ class DataController extends Controller
             $output = curl_exec($ch);
             $productMas = json_decode($output, true);
 
-            foreach($productMas as $product ) {
+            foreach ($productMas as $product) {
                 $entry = new MagentoProductModel();
                 $entry->loadBy('sku', $product['sku']);
                 $entry->saveProduct($product);
@@ -32,20 +31,23 @@ class DataController extends Controller
                 if ($entry->getId() == null) {
                     $report .= 'Added new product with SKU: ' . $product['sku']
                         . '<br />';
-                }
-                else {
+                } else {
                     $report .= 'Updated a product with SKU: ' . $product['sku']
                         . '<br />';
                 }
             }
-        }
-        else {
+        } else {
             echo 'Please enter url address';
         }
-        $this->view->render('importPageView.php', 'templateView.php', ['report' => $report]);
+        $this->view->render(
+            'importPageView.php', 'templateView.php', ['report' => $report]
+        );
 
     }
 
+    /**Display sorted products. Also can apply pagination if it's necessary
+     *
+     */
     public function actionList()
     {
         //Не годится для большого объема товаров. Переделать на sql
@@ -81,26 +83,29 @@ class DataController extends Controller
         }
     }
 
+    /**Edit a single product
+     *
+     */
     public function actionEdit()
     {
         $id = $_GET["id"];
         $product = new MagentoProductModel();
         $product->loadBy('product_id', $id);
-        if(isset($_POST['sku'])) {
+        if (isset($_POST['sku'])) {
             foreach ($product->getFields() as $field) {
                 if (isset($_POST[$field])) {
                     $product->set($field, $_POST[$field]);
                 }
             }
-            if($product->validate()) {
+            if ($product->validate()) {
                 $product->save();
                 header("Location: http://pmpanel.loc/data/list");
+            } else {
+                echo 'Invalid data!';
             }
-            else echo 'Invalid data!';
-
         }
-        $this->view->render('editingFormView.php', 'templateView.php', $product);
-
+        $this->view->render(
+            'editingFormView.php', 'templateView.php', $product
+        );
     }
-
 }
