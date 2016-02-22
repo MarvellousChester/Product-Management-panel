@@ -29,13 +29,10 @@ class MagentoProductModel extends ModelAbstract
         return $this->save();
     }
 
-//    public static function getAllProducts()
-//    {
-//        $statement = self::$dbh->query("SELECT * FROM `product`");
-//        return $statement->fetchAll();
-//
-//    }
 
+    /**Check if input data is correct
+     * @return bool
+     */
     public function validate()
     {
         $fields = $this->data;
@@ -61,7 +58,20 @@ class MagentoProductModel extends ModelAbstract
         return true;
     }
 
-    public static function getProducts($itemsOnPage, $page = 0, $sortAttribute = 'product_id', $sortOption = 'ASC')
+    /**get products from a database
+     * @param        $itemsOnPage
+     * @param int    $page
+     * @param string $sortAttribute
+     * @param string $sortOption
+     *
+     * @return array
+     */
+    public static function getProducts(
+        $itemsOnPage,
+        $page = 0,
+        $sortAttribute = 'product_id',
+        $sortOption = 'ASC'
+    )
     {
         if (isset($_GET["page"])) {
             $page = $_GET["page"] - 1;
