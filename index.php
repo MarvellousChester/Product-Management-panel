@@ -13,6 +13,6 @@ $autoloader = new Autoloader();
 $autoloader->register();
 
 //One instance of user is required
-$user = new UserModel();
+$user = new UserModel(); //test
 
 require_once 'application/bootstrap.php';
