@@ -1,8 +1,13 @@
 body {
+    margin: auto;
+    width: 70%;
     padding: 10px;
     font-family: Arial, sans-serif;
     font-size: 14px;
     line-height: 1.4;
+}
+h1 {
+    text-align: center;
 }
 
 .main-menu {
@@ -10,6 +15,7 @@ body {
     margin: auto;
     padding: 10px 15px;
     list-style: none;
+    text-align: center;
     border: 1px solid #E5E5E5;
     background: #f5f5f5;
 }
@@ -20,11 +26,18 @@ body {
 
 }
 
+.importForm {
+    text-align: center;
+}
+
 a {
     color: #0088CC;
 }
-
+.productTable {
+    width: 100%;
+}
 table {
+    width: 100%;
     border: 1px solid #E5E5E5;
 }
 table th {
@@ -45,7 +58,7 @@ table a {
 }
 
 table .nameColumn {
-    width: 400px;
+    width: 600px;
 }
 
 .pager {
@@ -63,8 +76,10 @@ table .nameColumn {
     text-decoration: none;
 }
 
-div#notFound404 h1 {
-    font-size: 90pt;
-    text-align: center;
 
+div#notFound404 {
+    text-align: center;
+}
+div#notFound404 img {
+    width: 800px;
 }

@@ -1,3 +1,3 @@
 <div id="notFound404">
-    <h1>404 not found</h1>
+    <img src="../images/404-error-page-not-found.png">
 </div>

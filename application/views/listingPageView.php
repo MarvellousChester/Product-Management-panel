@@ -3,7 +3,7 @@
 use Cgi\Application\Core\UrlHandler;
 
 ?>
-
+<div class="productTable">
 <table>
     <caption>Products</caption>
     <tr>
@@ -30,7 +30,7 @@ use Cgi\Application\Core\UrlHandler;
     <?php } ?>
 
 </table>
-
+</div>
 <div class="pager">
 <?php for($i = 1; $i <= $amountOfPages; $i++) {
     echo '<p><a href=' . UrlHandler::updateUrl(['page' => $i]) . '>' . $i .'</a></p>';
