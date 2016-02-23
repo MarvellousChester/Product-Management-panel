@@ -17,6 +17,13 @@ class UserModel extends ModelAbstract
         }
     }
 
+
+    /**Find a user by his attribute
+     * @param $field
+     * @param $value
+     *
+     * @return UserModel|null
+     */
     public static function findBy($field, $value)
     {
         $sqlQuery = "SELECT * FROM `user` WHERE `$field` = '$value'";
@@ -30,6 +37,12 @@ class UserModel extends ModelAbstract
         else return new self($values);
     }
 
+    /**Validates a user.
+     * @param $email
+     * @param $password
+     *
+     * @return bool
+     */
     public static function validate($email, $password)
     {
         $user = self::findBy('email', $email);

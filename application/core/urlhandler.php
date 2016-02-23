@@ -3,6 +3,11 @@ namespace Cgi\Application\Core;
 
 class UrlHandler
 {
+    /**Update url with inputted array of parameters
+     * @param $data
+     *
+     * @return mixed|string
+     */
     public static function updateUrl($data)
     {
         $url = $_SERVER['REQUEST_URI'];

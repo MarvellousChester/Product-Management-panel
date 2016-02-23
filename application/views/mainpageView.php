@@ -1,2 +1,2 @@
 
-<h1>HI, <?=$first_name ?>! It's a Main page.</h1>
+<h1>Welcome to Products Management panel, <?=$firstName ?>!</h1>
