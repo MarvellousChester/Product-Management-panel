@@ -112,12 +112,13 @@ abstract class ModelAbstract implements OrmInterface
         $values = $statement->fetch();
         if ($values == null) {
             self::$logger->notice("Can't find en entry with $field : $value ");
+            return false;
         } else {
             $this->data = $values;
             $this->isLoaded = true;
         }
 
-        return $this->data;
+        return true;
     }
 
     /**Save data in the database

@@ -96,3 +96,14 @@
 2016-02-19 16:56:31  error: Can't find en entry with sku : hbm008 
 2016-02-19 16:56:31  error: Can't find en entry with sku : hbm010 
 2016-02-19 16:56:31  error: Can't find en entry with sku : mem000 
+2016-02-24 10:52:12  error: Can't find en entry with product_id :  
+2016-02-24 10:55:06  error: Can't find en entry with product_id : 100 
+2016-02-24 10:55:16  error: Can't find en entry with product_id :  
+2016-02-24 10:55:23  error: Can't find en entry with product_id : 100 
+2016-02-24 10:55:56  error: Can't find en entry with product_id : 100 
+2016-02-24 10:56:46  error: Can't find en entry with product_id : 100 
+2016-02-24 10:58:34  error: Can't find en entry with product_id : 100 
+2016-02-24 10:58:51  error: Can't find en entry with product_id : dgdgd 
+2016-02-24 10:59:11  error: Can't find en entry with product_id : 100 
+2016-02-24 10:59:17  error: Can't find en entry with product_id : sfsfsf 
+2016-02-24 10:59:21  error: Can't find en entry with product_id :  

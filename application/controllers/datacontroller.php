@@ -42,7 +42,6 @@ class DataController extends Controller
         $this->view->render(
             'importPageView.php', 'templateView.php', ['report' => $report]
         );
-
     }
 
     /**Display products
@@ -86,7 +85,11 @@ class DataController extends Controller
     {
         $id = $_GET["id"];
         $product = new MagentoProductModel();
-        $product->loadBy('product_id', $id);
+        $load = $product->loadBy('product_id', $id);
+        if($load == false) {
+            header("Location: http://pmpanel.loc/data/list");
+            exit();
+        }
         if (isset($_POST['sku'])) {
             foreach ($product->getFields() as $field) {
                 if (isset($_POST[$field])) {
