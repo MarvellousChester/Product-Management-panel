@@ -67,18 +67,11 @@ class MagentoProductModel extends ModelAbstract
      */
     public static function getProducts(
         $itemsOnPage,
-        $page = 0,
-        $sortAttribute = 'product_id',
-        $sortOption = 'ASC'
+        $page,
+        $sortAttribute,
+        $sortOption
     )
     {
-        if (isset($_GET["page"])) {
-            $page = $_GET["page"] - 1;
-        }
-        if (isset($_GET["sortBy"])) {
-            $sortAttribute = $_GET["sortBy"];
-            $sortOption = $_GET["option"];
-        }
         $firstItem = abs($page * $itemsOnPage);
 
         $statement = self::$dbh->query(

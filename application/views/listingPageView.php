@@ -33,7 +33,13 @@ use Cgi\Application\Core\UrlHandler;
 </div>
 <div class="pager">
 <?php for($i = 1; $i <= $amountOfPages; $i++) {
-    echo '<p><a href=' . UrlHandler::updateUrl(['page' => $i]) . '>' . $i .'</a></p>';
+    if($i == $page) {
+        echo '<p class="active">';
+    }
+    else {
+        echo '<p>';
+    }
+    echo '<a href=' . UrlHandler::updateUrl(['page' => $i]) . '>' . $i .'</a></p>';
 }
 ?>
 </div>

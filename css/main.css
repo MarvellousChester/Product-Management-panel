@@ -22,7 +22,8 @@ h1 {
 
 .main-menu li {
     display: inline-block;
-    margin-right: 5px;
+    margin-right: 1px;
+    padding: 5px;
 
 }
 
@@ -32,6 +33,7 @@ h1 {
 
 a {
     color: #0088CC;
+    text-decoration: none;
 }
 .productTable {
     width: 100%;
@@ -53,17 +55,11 @@ table caption {
     font-weight: bold;
 }
 
-table a {
-    text-decoration: none;
-}
 
 table .nameColumn {
     width: 600px;
 }
 
-.pager {
-
-}
 
 .pager p {
     display: inline-block;
@@ -71,11 +67,10 @@ table .nameColumn {
     padding: 0 5px;
     border: 2px solid #E5E5E5;
 }
+.pager p.active {
+    background-color: #b4cdcd;
 
-.pager p a {
-    text-decoration: none;
 }
-
 
 div#notFound404 {
     text-align: center;

@@ -51,12 +51,31 @@ class DataController extends Controller
     public function actionList()
     {
         $itemsOnPage = Settings::getSettings('productsPerPage');
-        $products = MagentoProductModel::getProducts($itemsOnPage);
+        $page = 0;
+        $sortAttribute = 'product_id';
+        $sortOption = 'ASC';
+
+        if (isset($_GET["page"])) {
+            $page = $_GET["page"] - 1;
+        }
+        if (isset($_GET["sortBy"])) {
+            $sortAttribute = $_GET["sortBy"];
+            $sortOption = $_GET["option"];
+        }
+
+        $products = MagentoProductModel::getProducts(
+            $itemsOnPage,
+            $page,
+            $sortAttribute,
+            $sortOption
+        );
+
         $amountOfProducts = MagentoProductModel::countProducts();
         $amountOfPages = ceil($amountOfProducts / $itemsOnPage);
         $this->view->render(
             'listingPageView.php', 'templateView.php',
-            ['products'      => $products, 'amountOfPages' => $amountOfPages]
+            ['products' => $products, 'amountOfPages' => $amountOfPages,
+             'page'     => $page + 1]
         );
     }
 
