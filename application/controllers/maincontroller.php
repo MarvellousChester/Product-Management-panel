@@ -54,6 +54,4 @@ class MainController extends Controller
         session_destroy();
         header("Location: http://pmpanel.loc");
     }
-
-
 }

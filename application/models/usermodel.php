@@ -26,9 +26,9 @@ class UserModel extends ModelAbstract
      */
     public static function findBy($field, $value)
     {
-        $sqlQuery = "SELECT * FROM `user` WHERE `$field` = '$value'";
-
-        $statement = self::$dbh->query($sqlQuery);
+        $sqlQuery = "SELECT * FROM `user` WHERE `$field` = ?";
+        $statement = self::$dbh->prepare($sqlQuery);
+        $statement->execute([$value]);
         $values = $statement->fetch();
         unset($values['user_id']);
         if($values == null) {

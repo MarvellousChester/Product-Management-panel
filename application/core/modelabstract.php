@@ -117,7 +117,6 @@ abstract class ModelAbstract implements OrmInterface
             $this->data = $values;
             $this->isLoaded = true;
         }
-
         return true;
     }
 
@@ -163,7 +162,6 @@ abstract class ModelAbstract implements OrmInterface
             if($inserted != false) $this->afterSave();
             return $inserted;
         }
-
     }
 
     /**Delete a loaded entry from the database

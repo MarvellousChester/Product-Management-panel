@@ -12,6 +12,12 @@ class Settings
         ],
         'productsPerPage' => '10',
 
+        'guestActionsList' => [
+            'actionlogin'
+        ],
+
+        'unAuthRedirectPage' => 'http://pmpanel.loc/main/login'
+
     ];
 
     public static function getSettings($field)
