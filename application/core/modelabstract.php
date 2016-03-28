@@ -58,8 +58,7 @@ abstract class ModelAbstract implements OrmInterface
         } else {
             self::$logger->error(
                 "En error has occurred while getting the PRIMARY KEY from
-            table $this->getTableName(): $statement->errorInfo()"
-            );
+            table" . $this->getTableName() . ':' . $statement->errorInfo());
         }
         foreach ($data as $key => $value) {
             $this->set($key, $value);
@@ -68,7 +67,7 @@ abstract class ModelAbstract implements OrmInterface
     }
 
     /**
-     * Set the value of field
+     * Set the value of the field
      * @param $field
      * @param $value
      */
@@ -83,10 +82,10 @@ abstract class ModelAbstract implements OrmInterface
         }
     }
 
-    /**
+    /**Get the value of the field
      * @param $field
      *
-     * @return data
+     * @return $data
      */
     public function get($field)
     {
@@ -97,6 +96,12 @@ abstract class ModelAbstract implements OrmInterface
         }
     }
 
+    /**Load the data by field
+     * @param $field
+     * @param $value
+     *
+     * @return array|mixed
+     */
     public function loadBy($field, $value)
     {
         $sqlQuery = "SELECT * FROM `" . $this->table
@@ -107,14 +112,18 @@ abstract class ModelAbstract implements OrmInterface
         $values = $statement->fetch();
         if ($values == null) {
             self::$logger->notice("Can't find en entry with $field : $value ");
+            return false;
         } else {
             $this->data = $values;
             $this->isLoaded = true;
         }
 
-        return $this->data;
+        return true;
     }
 
+    /**Save data in the database
+     * @return bool
+     */
     public function save()
     {
         $this->beforeSave();
@@ -140,6 +149,7 @@ abstract class ModelAbstract implements OrmInterface
             $inserted = $statement->execute($insertMas);
             return $inserted;
         } else {
+            $items = [];
             foreach ($this->fields as $key => $value) {
                 $this->fields[$key] = "`$value`";
                 $items[] = '?';
@@ -156,6 +166,9 @@ abstract class ModelAbstract implements OrmInterface
 
     }
 
+    /**Delete a loaded entry from the database
+     *
+     */
     public function delete()
     {
         if ($this->isLoaded) {
@@ -184,6 +197,9 @@ abstract class ModelAbstract implements OrmInterface
 
     }
 
+    /**Return all existing fields of the object
+     * @return array
+     */
     public function getFields()
     {
         return $this->fields;
@@ -202,6 +218,9 @@ abstract class ModelAbstract implements OrmInterface
 
     }
 
+    /**
+     *Called after save() method
+     */
     protected function afterSave()
     {
 

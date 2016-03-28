@@ -8,11 +8,10 @@ namespace Cgi\Application\Core;
  */
 
 use Cgi\Application\Controllers\defaultController;
-use Cgi\Application\Core\Controller;
 
 class Route
 {
-    /**
+    /**Main router of the application
      *
      */
     static function start()
@@ -21,7 +20,6 @@ class Route
         $controllerName = 'default';
         $actionName = 'Index';
 
-        //$routes = explode('/', $_SERVER['REQUEST_URI']);
         $routes = preg_split("#/|\?#", $_SERVER['REQUEST_URI']);
         //get controller name
         if (!empty($routes[1])) {
@@ -34,7 +32,6 @@ class Route
         }
 
         // forming full names
-        //$modelName = $controllerName . 'Model';
         $controllerName = '\\Cgi\Application\Controllers\\' . ucfirst(
                 $controllerName
             ) . 'Controller';
@@ -56,8 +53,6 @@ class Route
                 Route::ErrorPage404();
             }
         }
-
-
     }
 
     static function ErrorPage404()

@@ -8,9 +8,8 @@ namespace Cgi\Application\Core;
  */
 class View
 {
-    public $templateView = 'templateView.php';
 
-    function render($contentView, $templateView, $data = null)
+    function render($contentView, $templateView = 'templateView.php', $data = null)
     {
 
         if(is_array($data)) {

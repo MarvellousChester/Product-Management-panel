@@ -1,8 +1,13 @@
 body {
+    margin: auto;
+    width: 70%;
     padding: 10px;
     font-family: Arial, sans-serif;
     font-size: 14px;
     line-height: 1.4;
+}
+h1 {
+    text-align: center;
 }
 
 .main-menu {
@@ -10,21 +15,31 @@ body {
     margin: auto;
     padding: 10px 15px;
     list-style: none;
+    text-align: center;
     border: 1px solid #E5E5E5;
     background: #f5f5f5;
 }
 
 .main-menu li {
     display: inline-block;
-    margin-right: 5px;
+    margin-right: 1px;
+    padding: 5px;
 
+}
+
+.importForm {
+    text-align: center;
 }
 
 a {
     color: #0088CC;
+    text-decoration: none;
 }
-
+.productTable {
+    width: 100%;
+}
 table {
+    width: 100%;
     border: 1px solid #E5E5E5;
 }
 table th {
@@ -40,17 +55,11 @@ table caption {
     font-weight: bold;
 }
 
-table a {
-    text-decoration: none;
-}
 
 table .nameColumn {
-    width: 400px;
+    width: 600px;
 }
 
-.pager {
-
-}
 
 .pager p {
     display: inline-block;
@@ -58,13 +67,14 @@ table .nameColumn {
     padding: 0 5px;
     border: 2px solid #E5E5E5;
 }
+.pager p.active {
+    background-color: #b4cdcd;
 
-.pager p a {
-    text-decoration: none;
 }
 
-div#notFound404 h1 {
-    font-size: 90pt;
+div#notFound404 {
     text-align: center;
-
+}
+div#notFound404 img {
+    width: 800px;
 }

@@ -42,46 +42,40 @@ class DataController extends Controller
         $this->view->render(
             'importPageView.php', 'templateView.php', ['report' => $report]
         );
-
     }
 
-    /**Display sorted products. Also can apply pagination if it's necessary
+    /**Display products
      *
      */
     public function actionList()
     {
-        //test2
-        //Не годится для большого объема товаров. Переделать на sql
-        $products = MagentoProductModel::getAllProducts();
-        $products = MagentoProductModel::sort($products);
-
+        $itemsOnPage = Settings::getSettings('productsPerPage');
         $page = 0;
+        $sortAttribute = 'product_id';
+        $sortOption = 'ASC';
 
         if (isset($_GET["page"])) {
-            $page = $_GET["page"];
+            $page = $_GET["page"] - 1;
+        }
+        if (isset($_GET["sortBy"])) {
+            $sortAttribute = $_GET["sortBy"];
+            $sortOption = $_GET["option"];
         }
 
-        $pagination = false;
-        $itemsOnPage = Settings::getSettings('productsPerPage');
-        $amountOfPages = ceil(count($products) / $itemsOnPage);
+        $products = MagentoProductModel::getProducts(
+            $itemsOnPage,
+            $page,
+            $sortAttribute,
+            $sortOption
+        );
 
-        if (count($products) > $itemsOnPage) {
-            $pagination = true;
-        }
-        if ($pagination) {
-            $productsSplited = array_chunk($products, $itemsOnPage);
-            $this->view->render(
-                'listingPageView.php', 'templateView.php',
-                ['products'      => $productsSplited[$page], 'page' => $page,
-                 'amountOfPages' => $amountOfPages]
-            );
-        } else {
-            $this->view->render(
-                'listingPageView.php', 'templateView.php',
-                ['products'      => $products, 'page' => $page,
-                 'amountOfPages' => $amountOfPages]
-            );
-        }
+        $amountOfProducts = MagentoProductModel::countProducts();
+        $amountOfPages = ceil($amountOfProducts / $itemsOnPage);
+        $this->view->render(
+            'listingPageView.php', 'templateView.php',
+            ['products' => $products, 'amountOfPages' => $amountOfPages,
+             'page'     => $page + 1]
+        );
     }
 
     /**Edit a single product
@@ -91,7 +85,11 @@ class DataController extends Controller
     {
         $id = $_GET["id"];
         $product = new MagentoProductModel();
-        $product->loadBy('product_id', $id);
+        $load = $product->loadBy('product_id', $id);
+        if($load == false) {
+            header("Location: http://pmpanel.loc/data/list");
+            exit();
+        }
         if (isset($_POST['sku'])) {
             foreach ($product->getFields() as $field) {
                 if (isset($_POST[$field])) {
