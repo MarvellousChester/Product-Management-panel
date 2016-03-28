@@ -32,10 +32,11 @@ class PdoConnection
         }
     }
 
+    /**Establish a connection
+     * @return PDO
+     */
     public function establish()
     {
-        //var_dump($this->connectionData);
-
         $dbName = $this->connectionData['dbname'];
         $host = $this->connectionData['host'];
         $dsn = "mysql:dbname=$dbName;host=$host";

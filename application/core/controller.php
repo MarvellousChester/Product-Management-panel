@@ -1,10 +1,7 @@
 <?php
 namespace Cgi\Application\Core;
 /**
- * Created by PhpStorm.
- * User: aleksandr
- * Date: 16.02.16
- * Time: 16:39
+ * Base controller class
  */
 class Controller
 {

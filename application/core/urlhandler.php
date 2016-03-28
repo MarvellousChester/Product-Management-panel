@@ -3,9 +3,17 @@ namespace Cgi\Application\Core;
 
 class UrlHandler
 {
-    public static function updateUrl($data)
+    /**Update url with inputted array of parameters
+     * @param $data
+     * @param $url
+     *
+     * @return mixed|string
+     */
+    public static function updateUrl($data, $url = null)
     {
-        $url = $_SERVER['REQUEST_URI'];
+        if (null === $url) {
+            $url = $_SERVER['REQUEST_URI'];
+        }
         if(strpos($url, '?') == false) {
             $url .= '?';
         }
