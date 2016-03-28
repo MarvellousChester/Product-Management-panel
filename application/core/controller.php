@@ -18,9 +18,13 @@ class Controller
 
     public function beforeAction()
     {
-        if($this->actionName != 'actionlogin'){
+        $guestActionsList = Settings::getSettings('guestActionsList');
+        $redirectLocation = Settings::getSettings('unAuthRedirectPage');
+        //If it's not an action for guests
+        if(!in_array($this->actionName, $guestActionsList)){
             if(!$_SESSION["isAuth"]) {
-                header("Location: http://pmpanel.loc/main/login");
+                header("Location: $redirectLocation");
+                exit;
             }
         }
     }

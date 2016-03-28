@@ -13,6 +13,7 @@ class DataController extends Controller
     public function actionImport()
     {
         $report = "";
+        $productMas = [];
         if (isset($_GET["url"]) && $_GET["url"] != null) {
             //forming the request url
             $url = $_GET["url"] . 'api/rest/products?page=1&limit=100';
@@ -21,7 +22,14 @@ class DataController extends Controller
             curl_setopt($ch, CURLOPT_URL, $url);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
             $output = curl_exec($ch);
-            $productMas = json_decode($output, true);
+            //If request failed
+            if ($output == false) {
+                echo 'An error was encountered during the import. Please check
+                inputted url';
+            }
+            else {
+                $productMas = json_decode($output, true);
+            }
 
             foreach ($productMas as $product) {
                 $entry = new MagentoProductModel();
@@ -49,7 +57,7 @@ class DataController extends Controller
      */
     public function actionList()
     {
-        $itemsOnPage = Settings::getSettings('productsPerPage');
+        $itemsOnPage = (int)Settings::getSettings('productsPerPage');
         $page = 0;
         $sortAttribute = 'product_id';
         $sortOption = 'ASC';
@@ -58,8 +66,8 @@ class DataController extends Controller
             $page = $_GET["page"] - 1;
         }
         if (isset($_GET["sortBy"])) {
-            $sortAttribute = $_GET["sortBy"];
-            $sortOption = $_GET["option"];
+            $sortAttribute = strip_tags($_GET["sortBy"]);
+            $sortOption = strip_tags($_GET["option"]);
         }
 
         $products = MagentoProductModel::getProducts(
@@ -83,7 +91,7 @@ class DataController extends Controller
      */
     public function actionEdit()
     {
-        $id = $_GET["id"];
+        $id = (int)$_GET["id"];
         $product = new MagentoProductModel();
         $load = $product->loadBy('product_id', $id);
         if($load == false) {
